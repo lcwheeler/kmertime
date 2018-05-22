@@ -1,0 +1,10 @@
+README.md
+kmertime/__init__.py
+kmertime/kmerset.py
+kmertime/utils.py
+kmertime.egg-info/PKG-INFO
+kmertime.egg-info/SOURCES.txt
+kmertime.egg-info/dependency_links.txt
+kmertime.egg-info/not-zip-safe
+kmertime.egg-info/requires.txt
+kmertime.egg-info/top_level.txt
