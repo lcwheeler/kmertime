@@ -1,1 +1,1 @@
-from .kmerset import KmerSet
+from .kmerset import KmerSet, KmerSetPartitioned
