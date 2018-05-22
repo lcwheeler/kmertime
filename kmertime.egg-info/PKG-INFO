@@ -1,0 +1,12 @@
+Metadata-Version: 1.1
+Name: kmertime
+Version: 0.1
+Summary: Python software package for counting kmers in sequence data
+Home-page: UNKNOWN
+Author: Lucas C. Wheeler
+Author-email: lwheeler9@gmail.com
+License: UNKNOWN
+Description-Content-Type: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python
