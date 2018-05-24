@@ -867,6 +867,12 @@ static int __Pyx_ParseOptionalKeywords(PyObject *kwds, PyObject **argnames[],\
     PyObject *kwds2, PyObject *values[], Py_ssize_t num_pos_args,\
     const char* function_name);
 
+/* ArgTypeTest.proto */
+#define __Pyx_ArgTypeTest(obj, type, none_allowed, name, exact)\
+    ((likely((Py_TYPE(obj) == type) | (none_allowed && (obj == Py_None)))) ? 1 :\
+        __Pyx__ArgTypeTest(obj, type, name, exact))
+static int __Pyx__ArgTypeTest(PyObject *obj, PyTypeObject *type, const char *name, int exact);
+
 /* GetModuleGlobalName.proto */
 static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name);
 
@@ -1092,7 +1098,7 @@ static PyObject *__pyx_codeobj__2;
 /* "kmertime/kmercounter.pyx":3
  * from collections import defaultdict
  * 
- * def kmer_counter(sequences, int k):             # <<<<<<<<<<<<<<
+ * def kmer_counter(list sequences, int k):             # <<<<<<<<<<<<<<
  * 
  *     """Function to count kmers in a list of sequences.
  */
@@ -1142,7 +1148,7 @@ static PyObject *__pyx_pw_8kmertime_11kmercounter_1kmer_counter(PyObject *__pyx_
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
-    __pyx_v_sequences = values[0];
+    __pyx_v_sequences = ((PyObject*)values[0]);
     __pyx_v_k = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_k == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 3, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
@@ -1153,9 +1159,14 @@ static PyObject *__pyx_pw_8kmertime_11kmercounter_1kmer_counter(PyObject *__pyx_
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_sequences), (&PyList_Type), 1, "sequences", 1))) __PYX_ERR(0, 3, __pyx_L1_error)
   __pyx_r = __pyx_pf_8kmertime_11kmercounter_kmer_counter(__pyx_self, __pyx_v_sequences, __pyx_v_k);
 
   /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = NULL;
+  __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
@@ -1171,10 +1182,9 @@ static PyObject *__pyx_pf_8kmertime_11kmercounter_kmer_counter(CYTHON_UNUSED PyO
   PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
   Py_ssize_t __pyx_t_5;
-  PyObject *(*__pyx_t_6)(PyObject *);
-  Py_ssize_t __pyx_t_7;
-  PyObject *(*__pyx_t_8)(PyObject *);
-  PyObject *__pyx_t_9 = NULL;
+  Py_ssize_t __pyx_t_6;
+  PyObject *(*__pyx_t_7)(PyObject *);
+  PyObject *__pyx_t_8 = NULL;
   __Pyx_RefNannySetupContext("kmer_counter", 0);
 
   /* "kmertime/kmercounter.pyx":19
@@ -1239,45 +1249,19 @@ static PyObject *__pyx_pf_8kmertime_11kmercounter_kmer_counter(CYTHON_UNUSED PyO
  *         for i in range(len(s)-k):
  *             kmer_dict[s[i:i+k]] += 1
  */
-  if (likely(PyList_CheckExact(__pyx_v_sequences)) || PyTuple_CheckExact(__pyx_v_sequences)) {
-    __pyx_t_1 = __pyx_v_sequences; __Pyx_INCREF(__pyx_t_1); __pyx_t_5 = 0;
-    __pyx_t_6 = NULL;
-  } else {
-    __pyx_t_5 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_sequences); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 21, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_6 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 21, __pyx_L1_error)
+  if (unlikely(__pyx_v_sequences == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
+    __PYX_ERR(0, 21, __pyx_L1_error)
   }
+  __pyx_t_1 = __pyx_v_sequences; __Pyx_INCREF(__pyx_t_1); __pyx_t_5 = 0;
   for (;;) {
-    if (likely(!__pyx_t_6)) {
-      if (likely(PyList_CheckExact(__pyx_t_1))) {
-        if (__pyx_t_5 >= PyList_GET_SIZE(__pyx_t_1)) break;
-        #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_2 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_5); __Pyx_INCREF(__pyx_t_2); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 21, __pyx_L1_error)
-        #else
-        __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 21, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        #endif
-      } else {
-        if (__pyx_t_5 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
-        #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_5); __Pyx_INCREF(__pyx_t_2); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 21, __pyx_L1_error)
-        #else
-        __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 21, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        #endif
-      }
-    } else {
-      __pyx_t_2 = __pyx_t_6(__pyx_t_1);
-      if (unlikely(!__pyx_t_2)) {
-        PyObject* exc_type = PyErr_Occurred();
-        if (exc_type) {
-          if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 21, __pyx_L1_error)
-        }
-        break;
-      }
-      __Pyx_GOTREF(__pyx_t_2);
-    }
+    if (__pyx_t_5 >= PyList_GET_SIZE(__pyx_t_1)) break;
+    #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+    __pyx_t_2 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_5); __Pyx_INCREF(__pyx_t_2); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 21, __pyx_L1_error)
+    #else
+    __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 21, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    #endif
     __Pyx_XDECREF_SET(__pyx_v_s, __pyx_t_2);
     __pyx_t_2 = 0;
 
@@ -1288,42 +1272,42 @@ static PyObject *__pyx_pf_8kmertime_11kmercounter_kmer_counter(CYTHON_UNUSED PyO
  *             kmer_dict[s[i:i+k]] += 1
  * 
  */
-    __pyx_t_7 = PyObject_Length(__pyx_v_s); if (unlikely(__pyx_t_7 == ((Py_ssize_t)-1))) __PYX_ERR(0, 22, __pyx_L1_error)
-    __pyx_t_2 = PyInt_FromSsize_t((__pyx_t_7 - __pyx_v_k)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 22, __pyx_L1_error)
+    __pyx_t_6 = PyObject_Length(__pyx_v_s); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 22, __pyx_L1_error)
+    __pyx_t_2 = PyInt_FromSsize_t((__pyx_t_6 - __pyx_v_k)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 22, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 22, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     if (likely(PyList_CheckExact(__pyx_t_4)) || PyTuple_CheckExact(__pyx_t_4)) {
-      __pyx_t_2 = __pyx_t_4; __Pyx_INCREF(__pyx_t_2); __pyx_t_7 = 0;
-      __pyx_t_8 = NULL;
+      __pyx_t_2 = __pyx_t_4; __Pyx_INCREF(__pyx_t_2); __pyx_t_6 = 0;
+      __pyx_t_7 = NULL;
     } else {
-      __pyx_t_7 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 22, __pyx_L1_error)
+      __pyx_t_6 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 22, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_8 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 22, __pyx_L1_error)
+      __pyx_t_7 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 22, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     for (;;) {
-      if (likely(!__pyx_t_8)) {
+      if (likely(!__pyx_t_7)) {
         if (likely(PyList_CheckExact(__pyx_t_2))) {
-          if (__pyx_t_7 >= PyList_GET_SIZE(__pyx_t_2)) break;
+          if (__pyx_t_6 >= PyList_GET_SIZE(__pyx_t_2)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_4 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_7); __Pyx_INCREF(__pyx_t_4); __pyx_t_7++; if (unlikely(0 < 0)) __PYX_ERR(0, 22, __pyx_L1_error)
+          __pyx_t_4 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_6); __Pyx_INCREF(__pyx_t_4); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 22, __pyx_L1_error)
           #else
-          __pyx_t_4 = PySequence_ITEM(__pyx_t_2, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 22, __pyx_L1_error)
+          __pyx_t_4 = PySequence_ITEM(__pyx_t_2, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 22, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           #endif
         } else {
-          if (__pyx_t_7 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
+          if (__pyx_t_6 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_7); __Pyx_INCREF(__pyx_t_4); __pyx_t_7++; if (unlikely(0 < 0)) __PYX_ERR(0, 22, __pyx_L1_error)
+          __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_6); __Pyx_INCREF(__pyx_t_4); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 22, __pyx_L1_error)
           #else
-          __pyx_t_4 = PySequence_ITEM(__pyx_t_2, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 22, __pyx_L1_error)
+          __pyx_t_4 = PySequence_ITEM(__pyx_t_2, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 22, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           #endif
         }
       } else {
-        __pyx_t_4 = __pyx_t_8(__pyx_t_2);
+        __pyx_t_4 = __pyx_t_7(__pyx_t_2);
         if (unlikely(!__pyx_t_4)) {
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
@@ -1354,11 +1338,11 @@ static PyObject *__pyx_pf_8kmertime_11kmercounter_kmer_counter(CYTHON_UNUSED PyO
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_v_kmer_dict, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 23, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_9 = __Pyx_PyInt_AddObjC(__pyx_t_3, __pyx_int_1, 1, 1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 23, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_9);
+      __pyx_t_8 = __Pyx_PyInt_AddObjC(__pyx_t_3, __pyx_int_1, 1, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 23, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (unlikely(PyObject_SetItem(__pyx_v_kmer_dict, __pyx_t_4, __pyx_t_9) < 0)) __PYX_ERR(0, 23, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+      if (unlikely(PyObject_SetItem(__pyx_v_kmer_dict, __pyx_t_4, __pyx_t_8) < 0)) __PYX_ERR(0, 23, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
       /* "kmertime/kmercounter.pyx":22
@@ -1385,6 +1369,8 @@ static PyObject *__pyx_pf_8kmertime_11kmercounter_kmer_counter(CYTHON_UNUSED PyO
  * 
  * 
  *     return kmer_dict             # <<<<<<<<<<<<<<
+ * 
+ * 
  */
   __Pyx_XDECREF(__pyx_r);
   __Pyx_INCREF(__pyx_v_kmer_dict);
@@ -1394,7 +1380,7 @@ static PyObject *__pyx_pf_8kmertime_11kmercounter_kmer_counter(CYTHON_UNUSED PyO
   /* "kmertime/kmercounter.pyx":3
  * from collections import defaultdict
  * 
- * def kmer_counter(sequences, int k):             # <<<<<<<<<<<<<<
+ * def kmer_counter(list sequences, int k):             # <<<<<<<<<<<<<<
  * 
  *     """Function to count kmers in a list of sequences.
  */
@@ -1405,7 +1391,7 @@ static PyObject *__pyx_pf_8kmertime_11kmercounter_kmer_counter(CYTHON_UNUSED PyO
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_XDECREF(__pyx_t_9);
+  __Pyx_XDECREF(__pyx_t_8);
   __Pyx_AddTraceback("kmertime.kmercounter.kmer_counter", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -1485,7 +1471,7 @@ static int __Pyx_InitCachedConstants(void) {
   /* "kmertime/kmercounter.pyx":3
  * from collections import defaultdict
  * 
- * def kmer_counter(sequences, int k):             # <<<<<<<<<<<<<<
+ * def kmer_counter(list sequences, int k):             # <<<<<<<<<<<<<<
  * 
  *     """Function to count kmers in a list of sequences.
  */
@@ -1749,7 +1735,7 @@ if (!__Pyx_RefNanny) {
   /* "kmertime/kmercounter.pyx":1
  * from collections import defaultdict             # <<<<<<<<<<<<<<
  * 
- * def kmer_counter(sequences, int k):
+ * def kmer_counter(list sequences, int k):
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -1768,7 +1754,7 @@ if (!__Pyx_RefNanny) {
   /* "kmertime/kmercounter.pyx":3
  * from collections import defaultdict
  * 
- * def kmer_counter(sequences, int k):             # <<<<<<<<<<<<<<
+ * def kmer_counter(list sequences, int k):             # <<<<<<<<<<<<<<
  * 
  *     """Function to count kmers in a list of sequences.
  */
@@ -1780,7 +1766,7 @@ if (!__Pyx_RefNanny) {
   /* "kmertime/kmercounter.pyx":1
  * from collections import defaultdict             # <<<<<<<<<<<<<<
  * 
- * def kmer_counter(sequences, int k):
+ * def kmer_counter(list sequences, int k):
  */
   __pyx_t_2 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -1998,6 +1984,27 @@ invalid_keyword:
     #endif
 bad:
     return -1;
+}
+
+/* ArgTypeTest */
+static int __Pyx__ArgTypeTest(PyObject *obj, PyTypeObject *type, const char *name, int exact)
+{
+    if (unlikely(!type)) {
+        PyErr_SetString(PyExc_SystemError, "Missing type object");
+        return 0;
+    }
+    else if (exact) {
+        #if PY_MAJOR_VERSION == 2
+        if ((type == &PyBaseString_Type) && likely(__Pyx_PyBaseString_CheckExact(obj))) return 1;
+        #endif
+    }
+    else {
+        if (likely(__Pyx_TypeCheck(obj, type))) return 1;
+    }
+    PyErr_Format(PyExc_TypeError,
+        "Argument '%.200s' has incorrect type (expected %.200s, got %.200s)",
+        name, type->tp_name, Py_TYPE(obj)->tp_name);
+    return 0;
 }
 
 /* GetModuleGlobalName */

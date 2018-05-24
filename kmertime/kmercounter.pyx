@@ -1,6 +1,6 @@
 from collections import defaultdict
 
-def kmer_counter(sequences, int k):
+def kmer_counter(list sequences, int k):
 
     """Function to count kmers in a list of sequences.
 
@@ -13,7 +13,7 @@ def kmer_counter(sequences, int k):
     k: int
         k-mer length
     """
-    
+
 
     # Initialize a defaultdict to count kmers in the dataset
     kmer_dict = defaultdict(int)
@@ -24,3 +24,19 @@ def kmer_counter(sequences, int k):
 
 
     return kmer_dict
+
+
+    #cdef dict kmer_dict = <dict>defaultdict(int)
+
+    #cdef dict kmer_dict = {}
+
+    #for s in sequences:
+        #for i in range(len(s)-k):
+            #if s[i:i+k] not in kmer_dict:
+                #kmer_dict[s[i:i+k]] = 0
+                #kmer_dict[s[i:i+k]] += 1
+            #else:
+                #kmer_dict[s[i:i+k]] += 1
+
+
+    #return  kmer_dict
