@@ -1,8 +1,8 @@
 # kmertime
 
-*Simple Python API for counting kmers in sequence data*
+*Simple Python package for counting kmers in sequence data*
 
-kmertime is a simple Python API for counting k-mers in sequence data. It is a pure Python implementation meant for small to moderately sized datasets. In it's current form it is neither the fastest nor the most memory efficient approach to the problem of kmer counting, but the API is user friendly. If you have a reasonably small dataset and want to count kmers in python (i.e. in a Jupyter notebook, inline with the rest of your analysis) kmertime will do the trick. Issues and pull requests welcome! 
+kmertime is a simple Python package for counting k-mers in sequence data. It is a pure Python implementation meant for small to moderately sized datasets. In it's current form it is neither the fastest nor the most memory efficient approach to the problem of kmer counting, but the API is user friendly. If you have a reasonably small dataset and want to count kmers in python (i.e. in a Jupyter notebook, inline with the rest of your analysis) kmertime will do the trick. Issues and pull requests welcome! 
 
 
 Basic example:
